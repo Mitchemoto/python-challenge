@@ -10,8 +10,6 @@ all_candidates=[]
 votes_cast=0
 total_votes=[]
 
-
-
 #create variable for file path
 file_path=os.path.join("Resources","election_data.csv")
 
@@ -70,7 +68,7 @@ winner=all_candidates[winner_index]
 
 #print the cadidates, vote percentage, total votes and the winner
 for votes in range(len(all_candidates)):
-    print (f"{all_candidates[votes]}:({total_votes[votes]})")#{(vote_percent[votes])}%
+    print (f"{all_candidates[votes]}:{percentage_index[votes]:.3f}%:({total_votes[votes]})")
 print("-------------------------")
 print(f"Winner: {winner}")
 print("-------------------------")       
@@ -124,7 +122,7 @@ writefile.write("-------------------------\n")
 writefile.write(f"Total Votes: {votes_cast}\n")
 writefile.write("-------------------------\n")
 for votes in range(len(all_candidates)):
-    writefile.write(f"{all_candidates[votes]} : ({total_votes[votes]})\n")#{vote_percent[votes]}% :
+    writefile.write(f"{all_candidates[votes]}:{percentage_index[votes]:.3f}%:({total_votes[votes]})\n")
 writefile.write("-------------------------\n")
 writefile.write(f"Winner: {winner}\n")
 writefile.write("-------------------------\n")
