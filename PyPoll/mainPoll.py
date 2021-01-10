@@ -3,6 +3,16 @@ import os
 # need to import csv reader
 import csv
 
+# Initiate Variables
+#voter_id = []
+#county_list=[]
+all_candidates=[]
+#dup_cand=[]
+votes_cast=0
+total_votes=[]
+vote_percent=[]
+cand_index=[]
+
 #create variable for file path
 file_path=os.path.join("Resources","election_data.csv")
 
@@ -13,28 +23,15 @@ csvfile=open(file_path)
 
 csvreader=csv.reader(csvfile,delimiter=",")
 
-csv_header=next(csvreader)
-
-# Will need to make variable lists for each item to return from the db. 
-#voter_id = []
-#county_list=[]
-all_candidates=[]
-#dup_cand=[]
-votes_cast=0
-total_votes=[]
-vote_percent=[]
-winner_index=0
-percentage_index=[]
-
 with open(file_path,'r'):
     csvreader=csv.reader(csvfile,delimiter=",")
-    csv_header=next(csvreader)
+    column=next(csvreader,"None")
     
 #For loop using an if statement to total votes for a candidate
 #use append to remove duplicates
-    for row in csv_header:
+    for column in csvreader:
         votes_cast=votes_cast+1
-        candidate=csvreader[2]
+        candidate=column[2]
         if candidate in all_candidates:
             cand_index=all_candidates.index(candidate)
             total_votes[cand_index]=total_votes[cand_index]+1
@@ -46,11 +43,15 @@ with open(file_path,'r'):
  #   votes_cast=len(voter_id)
 #print(votes_cast)
 
+#initiate variables for next round
+percentage_index=[]
+most_votes=total_votes[0]
+winner_index=0
 # A complete list of candidates who received votes
 # remove duplicate values from the candidate list
 # start a for loop for csvreader with an if/else staement to get the percentage of vote
 # as well as the winner
-most_votes=total_votes[0]
+
 for votes in range(len(all_candidates)):
     vote_percent=total_votes[votes]/votes_cast*100
     percentage_index.append(vote_percent)
@@ -58,7 +59,7 @@ for votes in range(len(all_candidates)):
         most_votes=total_votes[votes]
         print(most_votes)
         winner_index=votes
-winner=winner_index[most_votes]
+winner=all_candidates[winner_index]
 
         
 #create a dict to store the candidates
@@ -74,7 +75,7 @@ winner=winner_index[most_votes]
         # The percentage of votes each candidate won
 #        vote_percent=float(PyPoll(total_candidates[y]) / votes_cast * 100)
         
-#   print (candidate + ": " + str(vote_percent) + "% (" + str(sum_candidates) + ")")
+# print (candidate + ": " + (vote_percent) + "% (" + (sum_candidates) + ")")
 # The winner of the election based on popular vote.
 
 
@@ -99,3 +100,23 @@ for votes in range(len(all_candidates)):
 print("-------------------------")
 print(f"Winner: {winner}")
 print("-------------------------")
+
+#title file for output
+write_file="PyPoll_Results.txt"
+#open file writer
+writefile=open(write_file,mode='w')
+
+#print the analysis to the file
+writefile.write("Election Results\n")
+writefile.write("-------------------------\n")
+writefile.write(f"Total Votes: {votes_cast}\n")
+writefile.write("-------------------------\n")
+for votes in range(len(all_candidates)):
+    writefile.write(f"{candidate[votes]} : {vote_percent[votes]}% :({all_candidates[votes]})\n")
+writefile.write("-------------------------\n")
+writefile.write(f"Winner: {winner}\n")
+writefile.write("-------------------------\n")
+
+#close the writer
+writefile.close()
+
