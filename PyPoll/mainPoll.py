@@ -70,7 +70,7 @@ winner=all_candidates[winner_index]
 
 #print the cadidates, vote percentage, total votes and the winner
 for votes in range(len(all_candidates)):
-    print (f"{all_candidates[votes]}:({total_votes[votes]})")# {(vote_percent[votes])}% ")#:({total_votes[votes]})")
+    print (f"{all_candidates[votes]}:({total_votes[votes]})")#{(vote_percent[votes])}%
 print("-------------------------")
 print(f"Winner: {winner}")
 print("-------------------------")       
@@ -124,7 +124,7 @@ writefile.write("-------------------------\n")
 writefile.write(f"Total Votes: {votes_cast}\n")
 writefile.write("-------------------------\n")
 for votes in range(len(all_candidates)):
-    writefile.write(f"{all_candidates[votes]} : {vote_percent[votes]}% :({total_votes[votes]})\n")
+    writefile.write(f"{all_candidates[votes]} : ({total_votes[votes]})\n")#{vote_percent[votes]}% :
 writefile.write("-------------------------\n")
 writefile.write(f"Winner: {winner}\n")
 writefile.write("-------------------------\n")
