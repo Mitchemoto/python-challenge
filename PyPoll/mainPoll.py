@@ -12,6 +12,8 @@ total_votes=[]
 
 #create variable for file path
 file_path=os.path.join("Resources","election_data.csv")
+#file to load out
+loadout = "PyPoll_Analysis.txt"
 
 #use csvfile reader
 csvfile=open(file_path)
@@ -48,7 +50,7 @@ print("-------------------------")
 print(f"Total Votes: {votes_cast}")
 print("-------------------------")
 
-#initiate variables for next round
+#initiate variables for next for loop
 percentage_index=[]
 most_votes=total_votes[0]
 winner_index=0
@@ -58,12 +60,16 @@ winner_index=0
 # as well as the winner
 
 for votes in range(len(all_candidates)):
+    #vote percentage formula
     vote_percent=total_votes[votes]/votes_cast*100
+    #append the percentage
     percentage_index.append(vote_percent)
+    #if statement to load out candidate name
     if total_votes[votes] > most_votes:
         most_votes=total_votes[votes]
         print(most_votes)
         winner_index=votes
+#winning candidate
 winner=all_candidates[winner_index]
 
 #print the cadidates, vote percentage, total votes and the winner
@@ -112,9 +118,9 @@ print("-------------------------")
 #print("-------------------------")
 
 #title file for output
-write_file="PyPoll_Results.txt"
+write_txt="PyPoll_Analysis.txt"
 #open file writer
-writefile=open(write_file,mode='w')
+writefile=open(write_txt,mode='w')
 
 #print the analysis to the file
 writefile.write("Election Results\n")
