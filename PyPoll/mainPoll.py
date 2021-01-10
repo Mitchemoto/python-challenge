@@ -11,11 +11,17 @@ csvfile=open(file_path)
 # below is to read if issues since on windows
 # csvfile = open(csvfile, encoding='utf8')
 
-csvreader=csv.reader(csvfile)
+csvreader=csv.reader(csvfile,delimiter=",")
 
 csv_header=next(csvreader)
 
-# Will need to make variables for each item to return from the db. 
+# Will need to make variable lists for each item to return from the db. 
+voter_id = []
+county_list=[]
+candidate=[]
+
+
+
 
 # The total number of votes cast
 

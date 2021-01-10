@@ -1,10 +1,10 @@
 #import the operating systems to use across systems
 import pandas as pd
 # need to import csv reader
-import csv
+# import csv
 
 #create variable for file path
-file_path="PyBank/Resources/budget_data.csv"
+file_path="Resources/budget_data.csv"
 
 #variable dataframe to reade the csv file, and return headers
 data_file_df = pd.read_csv(file_path)
@@ -39,10 +39,10 @@ curr_mo = 0
 
 for x in range(len(change_mo)):
     curr_mo=change_mo[x]
-    data_file_df['Change'].iloc[x]=curr_mo-prev_mo
+    data_file_df.loc[x, 'Change']=curr_mo-prev_mo
     prev_mo = curr_mo
 
-change_df=data_file_df['Change'].mean()
+change_df=data_file_df.loc[1:,'Change'].mean()
 change_df
 
 #The greatest increase in profits (date and amount) over the entire period
@@ -71,8 +71,8 @@ min_df = data_file_df.loc[l_filter_df,'Date']
 print("Financial Analysis")
 print( "------------------------")
 print(f"Total Months: {month_total_df}")
-print(f"Total: {net_total_df}")
-print(f"Average Change: "  )
+print(f"Total: ${net_total_df}")
+print(f"Average Change: ${change_df}"  )
 print(f"Greatest Increase in Profits: {max_df} (${increase_df})")
 print(f"Greatest Decrease in Profits: {min_df} (${decrease_df})")
 #The greatest decrease in losses (date and amount) over the entire period
