@@ -64,7 +64,7 @@ for votes in range(len(all_candidates)):
     vote_percent=total_votes[votes]/votes_cast*100
     #append the percentage
     percentage_index.append(vote_percent)
-    #if statement to load out candidate name
+    #if statement to load out winner index
     if total_votes[votes] > most_votes:
         most_votes=total_votes[votes]
         print(most_votes)
