@@ -7,10 +7,9 @@ import csv
 #voter_id = []
 #county_list=[]
 all_candidates=[]
-#dup_cand=[]
 votes_cast=0
 total_votes=[]
-vote_percent=[]
+
 
 
 #create variable for file path
@@ -23,15 +22,19 @@ csvfile=open(file_path)
 
 csvreader=csv.reader(csvfile,delimiter=",")
 
-with open(file_path,'r'):
+with open(file_path,newline="") as csvfile:
     csvreader=csv.reader(csvfile,delimiter=",")
+    #skip the header with next
     column=next(csvreader,"None")
     
 #For loop using an if statement to total votes for a candidate
-#use append to remove duplicates
+#use append to create a new location to store the candidate values
     for column in csvreader:
+        #total votes
         votes_cast=votes_cast+1
+        #cadidate the votes are associated with
         candidate=column[2]
+        #if statement for for votes assicated with cadidate
         if candidate in all_candidates:
             cand_index=all_candidates.index(candidate)
             total_votes[cand_index]=total_votes[cand_index]+1
@@ -42,6 +45,10 @@ with open(file_path,'r'):
 # The total number of votes cast
  #   votes_cast=len(voter_id)
 #print(votes_cast)
+print("Election Results")
+print("-------------------------")
+print(f"Total Votes: {votes_cast}")
+print("-------------------------")
 
 #initiate variables for next round
 percentage_index=[]
@@ -61,7 +68,12 @@ for votes in range(len(all_candidates)):
         winner_index=votes
 winner=all_candidates[winner_index]
 
-        
+#print the cadidates, vote percentage, total votes and the winner
+for votes in range(len(all_candidates)):
+    print (f"{all_candidates[votes]}:({total_votes[votes]})")# {(vote_percent[votes])}% ")#:({total_votes[votes]})")
+print("-------------------------")
+print(f"Winner: {winner}")
+print("-------------------------")       
 #create a dict to store the candidates
 #  PyPoll={}
 
@@ -91,15 +103,15 @@ winner=all_candidates[winner_index]
 # -------------------------
 # Winner: Candidate name
 # -------------------------
-print("Election Results")
-print("-------------------------")
-print(f"Total Votes: {votes_cast}")
-print("-------------------------")
-for votes in range(len(all_candidates)):
-    print (f"{candidate[votes]} : {vote_percent[votes]}% :({all_candidates[votes]})")
-print("-------------------------")
-print(f"Winner: {winner}")
-print("-------------------------")
+#print("Election Results")
+#print("-------------------------")
+#print(f"Total Votes: {votes_cast}")
+#print("-------------------------")
+#for votes in range(len(all_candidates)):
+#    print (f"{candidate[votes]} : {vote_percent[votes]}% :({all_candidates[votes]})")
+#print("-------------------------")
+#print(f"Winner: {winner}")
+#print("-------------------------")
 
 #title file for output
 write_file="PyPoll_Results.txt"
@@ -112,7 +124,7 @@ writefile.write("-------------------------\n")
 writefile.write(f"Total Votes: {votes_cast}\n")
 writefile.write("-------------------------\n")
 for votes in range(len(all_candidates)):
-    writefile.write(f"{candidate} : {vote_percent}% :({all_candidates})\n")
+    writefile.write(f"{all_candidates[votes]} : {vote_percent[votes]}% :({total_votes[votes]})\n")
 writefile.write("-------------------------\n")
 writefile.write(f"Winner: {winner}\n")
 writefile.write("-------------------------\n")
