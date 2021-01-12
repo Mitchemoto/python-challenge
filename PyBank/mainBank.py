@@ -8,6 +8,8 @@ import csv
 #create variable for file path
 file_path=os.path.join("Resources","budget_data.csv")
 
+#output path for the txt file
+loadout="PyBank_Analysis.txt"
 #variable dataframe to reade the csv file, and return headers
 #data_file_df = pd.read_csv(file_path)
 #data_file_df.head()
@@ -106,3 +108,19 @@ print(f"Total: ${net_total}")
 
 # return all values in a print statement. 
 
+#title file for output
+write_txt="PyBank_Analysis.txt"
+#open file writer
+writefile=open(write_txt,mode='w')
+
+#print the analysis to the file
+writefile.write("Financial\n")
+writefile.write("------------------------\n")
+writefile.write(f"Total Months: {months}\n")
+writefile.write("Total: ${net_total}\n")
+#writefile.write(f"Average Change: ${change}\n")
+#writefile.write(f"Greatest Increase in Profits: {max_inc} (${increase_index})\n")
+#writefile.write("Greatest Decrease in Profits: {max_dec} (${decrease_index})\n")
+
+#close the writer
+writefile.close()
