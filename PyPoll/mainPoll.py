@@ -16,24 +16,24 @@ file_path=os.path.join("Resources","election_data.csv")
 loadout = "PyPoll_Analysis.txt"
 
 #use csvfile reader
-csvfile=open(file_path)
+#csvfile=open(file_path)
 # below is to read if issues reading on windows
 # csvfile = open(csvfile, encoding='utf8')
 
-csvreader=csv.reader(csvfile,delimiter=",")
+#csvreader=csv.reader(csvfile,delimiter=",")
 
 with open(file_path,newline="") as csvfile:
     csvreader=csv.reader(csvfile,delimiter=",")
     #skip the header with next
-    column=next(csvreader,"None")
+    row=next(csvreader,"None")
     
 #For loop using an if statement to total votes for a candidate
 #use append to create a new location to store the candidate values
-    for column in csvreader:
+    for row in csvreader:
         #total votes
         votes_cast=votes_cast+1
         #cadidate the votes are associated with
-        candidate=column[2]
+        candidate=row[2]
         #if statement for for votes assicated with cadidate
         if candidate in all_candidates:
             cand_index=all_candidates.index(candidate)
