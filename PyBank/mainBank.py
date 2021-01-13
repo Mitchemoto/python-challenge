@@ -35,7 +35,8 @@ with open(file_path,newline="") as csvfile:
     months=0
     curr_rev=0
     prev_rev=0
-    #rev_change=[]
+    total_change=0
+    rev_change=[]
     mo_change=[]
     increase_index=["",0]
     decrease_index=["",99999999999]
@@ -54,6 +55,10 @@ with open(file_path,newline="") as csvfile:
         prev_rev=int(row[1])
         mo_change=mo_change+[row[0]]
         
+    #Append to list rev.change then calculate sum of total changes over the entire period   
+        rev_change.append(curr_rev)
+        total_change=total_change+curr_rev
+        
     #Calculate total increase using > and an if statement
         if curr_rev>increase_index[1]:
             increase_index[0]=row[0]
@@ -63,12 +68,10 @@ with open(file_path,newline="") as csvfile:
         if curr_rev<decrease_index[1]:
             decrease_index[0]=row[0]
             decrease_index[1]=curr_rev
-     #Fill in change_rev values index
+    #Calculate the average change over the entire period
+        change_avg=(total_change-867884)/(months-1)
         
-#Calculate the changes in "Profit/Losses" over the entire period, 
-#then divide by the length of the list
-#change_avg=sum(rev_change)/len(rev_change)
-#print(change_avg)           
+     
 
 #Formatting 
 # Total Months: Integer
@@ -83,7 +86,7 @@ print("Financial Analysis")
 print( "------------------------")
 print(f"Total Months: {months}")
 print(f"Total: ${net_total}")
-print(f"Average Change:$")#{change_avg}")
+print(f"Average Change:${change_avg:.2f}")
 print(f"Greatest Increase in Profits: {increase_index[0]} (${increase_index[1]})")
 print(f"Greatest Decrease in Profits: {decrease_index[0]} (${decrease_index[1]})")
 #The greatest decrease in losses (date and amount) over the entire period
@@ -107,9 +110,9 @@ writefile.write("Financial Analysis\n")
 writefile.write("------------------------\n")
 writefile.write(f"Total Months: {months}\n")
 writefile.write(f"Total: ${net_total}\n")
-writefile.write(f"Average Change:$\n")#{change_avg}\n")
+writefile.write(f"Average Change:${change_avg:.2f}\n")
 writefile.write(f"Greatest Increase in Profits: {increase_index[0]} (${increase_index[1]})\n")
-writefile.write("Greatest Decrease in Profits: {decrease_index[1]} (${decrease_index[1]})\n")
+writefile.write(f"Greatest Decrease in Profits: {decrease_index[1]} (${decrease_index[1]})\n")
 
 #close the writer
 writefile.close()
