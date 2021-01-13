@@ -1,0 +1,4 @@
+Financial
+------------------------
+Total Months: 86
+Total: ${net_total}
