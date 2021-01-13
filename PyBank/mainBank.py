@@ -9,7 +9,9 @@ import csv
 file_path=os.path.join("Resources","budget_data.csv")
 
 #output path for the txt file
-loadout="PyBank_Analysis.txt"
+loadout=os.path.join("Analysis","PyBank_Analysis.txt")
+
+
 #variable dataframe to reade the csv file, and return headers
 #data_file_df = pd.read_csv(file_path)
 #data_file_df.head()
@@ -21,24 +23,98 @@ with open(file_path,newline="") as csvfile:
     csvreader=csv.reader(csvfile,delimiter=",")
     #skip the header
     header = next(csvreader)
+
 # Total Number of Months included in the dataset
 #month_total_df=data_file_df['Date'].count()
 #month_total_df
+
 #initial initial varialbles and set to 0
-    bud_dad=[]
+    #bud_data=[]
     net_total=0
+    #date=[]
     months=0
+    curr_rev=0
+    prev_rev=0
+    #rev_change=[]
+    mo_change=[]
+    increase_index=["",0]
+    decrease_index=["",99999999999]
+    
     #initiate a for loop to go down rows
     for row in csvreader:
         #calculate the total months
         months=len(list(csv.reader(open(file_path))))-1
-        #append the list
-        bud_dad.append(row[1])
+        
         #calculate the net total amount of "Profit/Losses"
         net_total=net_total+(int(row[1]))
 
+        
+    #Calculate the month to month change
+        curr_rev=int(row[1])-prev_rev
+        prev_rev=int(row[1])
+        mo_change=mo_change+[row[0]]
+        
+    #Calculate total increase using > and an if statement
+        if curr_rev>increase_index[1]:
+            increase_index[0]=row[0]
+            increase_index[1]=curr_rev
+        
+     #Calculate total increase using > and an if statement
+        if curr_rev<decrease_index[1]:
+            decrease_index[0]=row[0]
+            decrease_index[1]=curr_rev
+     #Fill in change_rev values index
+        
+#Calculate the changes in "Profit/Losses" over the entire period, 
+#then divide by the length of the list
+#change_avg=sum(rev_change)/len(rev_change)
+#print(change_avg)           
+
+#Formatting 
+# Total Months: Integer
+# Total: Dollar Amount
+# Average Change: Dollar Amount
+# Greatest Increase in Profits: Month-Year (Value $)
+# Greatest Decrease in Profits: Month-Year (Value $)
+
+# return all values in a print statement. 
+# "financial_analysis = 
+print("Financial Analysis")
+print( "------------------------")
+print(f"Total Months: {months}")
+print(f"Total: ${net_total}")
+print(f"Average Change:$")#{change_avg}")
+print(f"Greatest Increase in Profits: {increase_index[0]} (${increase_index[1]})")
+print(f"Greatest Decrease in Profits: {decrease_index[0]} (${decrease_index[1]})")
+#The greatest decrease in losses (date and amount) over the entire period
 
 
+# Total Months: Integer
+# Total: Dollar Amount
+# Average Change: Dollar Amount
+# Greatest Increase in Profits: Month-Year (Value $)
+# Greatest Decrease in Profits: Month-Year (Value $)
+
+# return all values in a print statement. 
+
+#title file for output
+write_txt="PyBank_Analysis.txt"
+#open file writer
+writefile=open(write_txt,mode='w')
+
+#print the analysis to the file
+writefile.write("Financial Analysis\n")
+writefile.write("------------------------\n")
+writefile.write(f"Total Months: {months}\n")
+writefile.write(f"Total: ${net_total}\n")
+writefile.write(f"Average Change:$\n")#{change_avg}\n")
+writefile.write(f"Greatest Increase in Profits: {increase_index[0]} (${increase_index[1]})\n")
+writefile.write("Greatest Decrease in Profits: {decrease_index[1]} (${decrease_index[1]})\n")
+
+#close the writer
+writefile.close()
+
+####### rest of panda coding
 # Net total amount of "profit/losses" over the entire period
 #net_total_df=data_file_df['Profit/Losses'].sum()
 #net_total_df
@@ -81,46 +157,3 @@ with open(file_path,newline="") as csvfile:
 #print(min_df,decrease_df)
 
 
-#Formatting 
-# Total Months: Integer
-# Total: Dollar Amount
-# Average Change: Dollar Amount
-# Greatest Increase in Profits: Month-Year (Value $)
-# Greatest Decrease in Profits: Month-Year (Value $)
-
-# return all values in a print statement. 
-# "financial_analysis = 
-print("Financial Analysis")
-print( "------------------------")
-print(f"Total Months: {months}")
-print(f"Total: ${net_total}")
-#print(f"Average Change: ${change}"  )
-#print(f"Greatest Increase in Profits: {max_inc} (${increase_index})")
-#print(f"Greatest Decrease in Profits: {max_dec} (${decrease_index})")
-#The greatest decrease in losses (date and amount) over the entire period
-
-
-# Total Months: Integer
-# Total: Dollar Amount
-# Average Change: Dollar Amount
-# Greatest Increase in Profits: Month-Year (Value $)
-# Greatest Decrease in Profits: Month-Year (Value $)
-
-# return all values in a print statement. 
-
-#title file for output
-write_txt="PyBank_Analysis.txt"
-#open file writer
-writefile=open(write_txt,mode='w')
-
-#print the analysis to the file
-writefile.write("Financial\n")
-writefile.write("------------------------\n")
-writefile.write(f"Total Months: {months}\n")
-writefile.write("Total: ${net_total}\n")
-#writefile.write(f"Average Change: ${change}\n")
-#writefile.write(f"Greatest Increase in Profits: {max_inc} (${increase_index})\n")
-#writefile.write("Greatest Decrease in Profits: {max_dec} (${decrease_index})\n")
-
-#close the writer
-writefile.close()

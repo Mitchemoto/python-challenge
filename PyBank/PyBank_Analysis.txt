@@ -1,4 +1,7 @@
-Financial
+Financial Analysis
 ------------------------
 Total Months: 86
-Total: ${net_total}
+Total: $38382578
+Average Change:$
+Greatest Increase in Profits: Feb-2012 ($1926159)
+Greatest Decrease in Profits: {decrease_index[1]} (${decrease_index[1]})
